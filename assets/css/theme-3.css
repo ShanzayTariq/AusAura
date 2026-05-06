@@ -1,0 +1,548 @@
+
+            .acrobat-button-container {
+                position: fixed;
+                right: 0;
+                bottom: 36px;
+                z-index: 2147483646;
+                visibility: visible !important;
+                pointer-events: all;
+                opacity: 1;
+                display: flex;
+                align-items: center;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            @media print {
+                .acrobat-button-container {
+                    display: none !important;
+                }
+            }
+
+            .acrobat-button {
+                position: relative;
+                background: white;
+                display: flex;
+                align-items: center;
+                pointer-events: all;
+                touch-action: none;
+                box-shadow: 0px 2px 8px 0px #00000029;
+                height: 34px;
+                width: 34px;
+                border: 1px solid transparent;
+                background-clip: padding-box, border-box;
+                background-origin: border-box;
+                background-image: linear-gradient(white, white),
+                    linear-gradient(95.85deg, #D73220 0%, #D92361 33%, #7155FA 100%);
+                border-radius: 18px;
+                justify-content: right;
+                margin-right: var(--fab-margin-right, 28px);
+                overflow: hidden;
+            }
+
+            .acrobat-button-container-transparent {
+                opacity: 0.4 !important;
+                transition: opacity 0.3s ease-in-out;
+            }
+
+            .acrobat-button-container-transparent:hover,
+            .acrobat-button-container-transparent:focus,
+            .acrobat-button-container-transparent:active {
+                opacity: 1;
+            }
+
+            .acrobat-button>svg {
+                flex-shrink: 0;
+                margin: 4px 5px 5px 5px;
+                width: 22px;
+                height: 22px;
+                pointer-events: none;
+                fill: #b40000;
+            }
+
+            .acrobat-button:has(.close-btn.open),
+            .expand-acrobat-button {
+                width: 64px;
+            }
+
+            .disabled {
+                background: #B1B1B1;
+            }
+
+            .tooltip-text {
+                width: 160px;
+                visibility: hidden;
+                opacity: 0;
+                background-color: #FFFFFF;
+                color: #292929;
+                border-radius: 7px;
+                padding: 4px 1px 5px 9px;
+                position: absolute;
+                z-index: 1;
+                right: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-right: 10px;
+                transition: opacity 0.3s, visibility 0s linear 2s;
+                font-size: 12px;
+                line-height: 15px;
+                font-family: 'adobe-clean', Adobe Clean, sans-serif;
+                filter: drop-shadow(0px 1px 6px rgba(0, 0, 0, 0.12));
+            }
+
+            .tooltip-text::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 100%;
+                transform: translateY(-50%);
+                border-width: 6px;
+                border-style: solid;
+                border-color: transparent transparent transparent #fff;
+            }
+
+            .show-tooltip {
+                visibility: visible;
+                opacity: 1;
+                line-height: 1.5;
+                font-family: 'adobe-clean', Adobe Clean, sans-serif;
+                transition: opacity 0.3s;
+                transition-delay: 500ms;
+            }
+
+            .close-btn {
+                position: relative;
+                display: none;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .close-btn svg {
+                fill: #464646;
+            }
+
+            .close-btn.showCloseButton {
+                opacity: 1;
+                display: flex;
+                justify-content: center;
+                width: 24px;
+                height: 24px;
+                padding: 2px;
+            }
+
+            .fab-view-settings-dialog {
+                display: none;
+                position: absolute;
+                bottom: 40px;
+                z-index: 1;
+            }
+
+            .close-btn:hover {
+                background: #E6E6E6;
+                border-radius: 50%;
+                /* Keep original circular hover */
+                cursor: pointer;
+            }
+
+            .fab-view-settings-dialog.showDialog {
+                display: block;
+            }
+
+            .close-btn .burger-icon {
+                display: inline;
+                margin-bottom: 2px;
+            }
+
+            .close-btn .close-icon {
+                display: none;
+            }
+
+            .close-btn.open .burger-icon {
+                display: none;
+            }
+
+            .close-btn.open .close-icon {
+                display: inline;
+            }
+
+            .tooltip-text .tooltip-text-content {
+                font-weight: bold;
+            }
+
+            .tooltip-text .tooltip-sub-text-text {
+                font-style: italic;
+                font-size: 11px;
+            }
+
+            /* Icon container styles - replaces iframe */
+            .icon-container {
+                width: 33px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: grab;
+                pointer-events: all;
+                flex-shrink: 0;
+                background: transparent;
+                border: none;
+            }
+
+            .icon-container:active {
+                cursor: grabbing;
+            }
+
+            .fab-svg-icon {
+                width: 22px;
+                height: 22px;
+                padding: 5px 5px 5px 6px;
+                pointer-events: none;
+                fill: #b40000;
+            }
+
+            .draggable-handle {
+                display: none;
+                position: absolute;
+                right: var(--drag-handle-right, 12px);
+                cursor: grab;
+            }
+
+            .draggable-handle-visible {
+                display: flex;
+            }
+
+            /* Font face declarations - for proper font loading in Shadow DOM */
+            @font-face {
+                font-family: 'adobe-clean';
+                font-weight: 400;
+                src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf') format('opentype');
+            }
+
+            @font-face {
+                font-family: 'adobe-clean';
+                font-weight: 700;
+                src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf') format('opentype');
+            }
+
+            @font-face {
+                font-family: 'AdobeClean-Regular';
+                src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Regular.otf') format('opentype');
+            }
+
+            @font-face {
+                font-family: 'AdobeClean-Bold';
+                src: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/css/fonts/AdobeClean-Bold.otf') format('opentype');
+            }
+
+            body {
+                font-family: 'AdobeClean-Regular', adobe-clean, "Adobe Clean", sans-serif;
+            }
+
+            .dialog-container {
+                width: 166px;
+                background-color: #ffffff;
+                border-radius: 4px;
+                border: 1px solid #B1B1B1;
+                box-shadow: 0px 1px 4px 0px #00000026;
+                z-index: 1000;
+                padding: 4px;
+                position: relative;
+                margin: 4px 0px;
+            }
+
+            .menu {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .menu .menu_item {
+                cursor: pointer;
+                font-family: 'AdobeClean-Regular', adobe-clean, "Adobe Clean", sans-serif;
+                align-content: center;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18.2px;
+                text-align: left;
+                color: #222222;
+                padding: 0px 12px;
+                height: 32px;
+                width: 140px;
+            }
+
+            .menu .menu_item:hover {
+                background-color: #eaeaea;
+            }
+
+            .preferences {
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 18.2px;
+                text-align: left;
+                color: #464646;
+            }
+
+            .divider {
+                border-top: 1px solid #E6E6E6;
+            }
+
+            /* React-specific wrappers - minimal */
+            .fab-root {
+                font-family: 'adobe-clean', Adobe Clean, sans-serif;
+            }
+
+            button.close-btn {
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                z-index: 10;
+                /* Ensure clickable above all other elements */
+                pointer-events: auto;
+            }
+
+            /* FAB Action Pills - From Figma Design */
+            .fab-pills-container {
+                position: absolute;
+                bottom: 42px;
+                /* FAB height (34px) + gap (8px) = 42px */
+                right: var(--fab-margin-right, 28px);
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-end;
+                width: 142px;
+                z-index: 1;
+            }
+
+            .fab-pills-container.pills-below {
+                bottom: auto;
+                top: 42px;
+                /* Same gap when positioned below */
+            }
+
+            /* Extend hover area using ::after pseudo-element - doesn't affect visual layout */
+            .fab-pills-container::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                /* Start right after the pills content */
+                left: 0;
+                right: 0;
+                height: 8px;
+                background: transparent;
+                pointer-events: auto;
+            }
+
+            .fab-pills-container.pills-below::after {
+                top: auto;
+                bottom: 100%;
+                /* Start right before the pills when positioned below */
+            }
+
+            /* FTE Header - First Time Experience (56px with close button) */
+            .fab-fte-header {
+                position: relative;
+                width: 142px;
+                min-height: 56px;
+                background: #FFFFFF;
+                border-radius: 12px;
+                box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+
+            .fab-fte-background {
+                position: absolute;
+                left: -13px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 183.33px;
+                height: 126.82px;
+                background: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/images/fab-header-background.svg') no-repeat center;
+                background-size: cover;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .fab-fte-close {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                z-index: 2;
+                color: #222222;
+                padding: 0;
+            }
+
+            .fab-fte-close:hover {
+                background: rgba(0, 0, 0, 0.05);
+                border-radius: 12px;
+            }
+
+            .fab-fte-close svg {
+                width: 8px;
+                height: 8px;
+            }
+
+            .fab-fte-text {
+                position: relative;
+                width: 102px;
+                font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+                font-weight: 400;
+                /* Use Bold font file directly, not synthetic bold */
+                font-size: 12px;
+                line-height: 16px;
+                color: #222222;
+                /* Figma spec color */
+                z-index: 1;
+                white-space: normal;
+                word-wrap: break-word;
+                margin-left: 16px;
+                margin-right: auto;
+                box-sizing: border-box;
+                -webkit-font-smoothing: subpixel-antialiased;
+                /* Better font rendering */
+                -moz-osx-font-smoothing: auto;
+            }
+
+            /* Hover Header - Normal state (24px without close button) */
+            .fab-hover-header {
+                position: relative;
+                width: 142px;
+                min-height: 24px;
+                background: #FFFFFF;
+                /* White background to show the colorful SVG and text */
+                border-radius: 12px;
+                box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .fab-hover-background {
+                position: absolute;
+                left: -27px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 212.63px;
+                height: 147.09px;
+                background: url('chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/browser/images/fab-header-background.svg') no-repeat center;
+                background-size: cover;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .fab-hover-text {
+                position: relative;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+                font-weight: 400;
+                /* Use Bold font file directly, not synthetic bold */
+                font-size: 12px;
+                line-height: 15px;
+                color: #222222;
+                /* Figma spec color */
+                z-index: 1;
+                white-space: normal;
+                padding: 4px 9px;
+                box-sizing: border-box;
+                -webkit-font-smoothing: subpixel-antialiased;
+                /* Better font rendering */
+                -moz-osx-font-smoothing: auto;
+            }
+
+            /* Individual Pill Buttons */
+            .fab-pill-button {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0;
+                width: 142px;
+                min-height: 24px;
+                /* Min height, allows growth with content */
+                background: #FFFFFF;
+                border: none;
+                border-radius: 12px;
+                box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.08), 0px 2px 6px 0px rgba(0, 0, 0, 0.04), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
+                cursor: pointer;
+                padding: 0;
+                transition: background 0.2s ease;
+                overflow: visible;
+            }
+
+            .fab-pill-button:hover {
+                background: #D5D5D5;
+            }
+
+            .fab-pill-button:hover .fab-pill-label,
+            .fab-pill-button:hover .fab-pill-icon {
+                color: #000000;
+                /* Hover state color from Figma Alias/content/neutral/hover */
+            }
+
+            .fab-pill-button:active {
+                background: #F4F4F4;
+            }
+
+            .fab-pill-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 7px 4px 10px;
+                /* Exact Figma specs: top right bottom left */
+                flex-shrink: 0;
+                box-sizing: border-box;
+            }
+
+            .fab-pill-icon img {
+                width: 16px;
+                height: 16px;
+                display: block;
+                flex-shrink: 0;
+                /* SVG icons with currentColor fill will inherit color from parent */
+                filter: brightness(0) saturate(100%) invert(13%) sepia(0%) saturate(0%) hue-rotate(196deg) brightness(97%) contrast(97%);
+                /* #222222 */
+            }
+
+            .fab-pill-button:hover .fab-pill-icon img {
+                filter: brightness(0) saturate(100%);
+                /* #000000 on hover */
+            }
+
+            .fab-pill-label {
+                display: flex;
+                align-items: center;
+                font-family: 'AdobeClean-Bold', adobe-clean, sans-serif;
+                font-weight: 400;
+                /* Use Bold font file directly, not synthetic bold */
+                font-size: 12px;
+                line-height: 15px;
+                /* 1.252 * 12px = 15.024px */
+                color: #222222;
+                /* Default text color from Figma Alias/content/neutral/default */
+                padding: 4px 9px 5px 0;
+                /* Reduced right padding to prevent wrapping */
+                text-align: left;
+                white-space: normal;
+                /* Allow text wrapping for multi-line content */
+                box-sizing: border-box;
+                flex: 1;
+                overflow: visible;
+                -webkit-font-smoothing: subpixel-antialiased;
+                /* Better font rendering */
+                -moz-osx-font-smoothing: auto;
+            }
+   
