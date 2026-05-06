@@ -2557,7 +2557,7 @@ div.twentytwenty-handle {
 
 @media (max-width: 1024px) {
     .ekit_menu_responsive_tablet>.elementskit-navbar-nav-default {
-        background-color:#f7f7f7
+        background-color: #009688;
     }
 
     .elementskit-navbar-nav-default.elementskit-menu-offcanvas-elements {

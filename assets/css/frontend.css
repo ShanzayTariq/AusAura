@@ -1940,3 +1940,14 @@ div.hfe-nav-menu,
     opacity:1;
     height:100%;
 }
+.contact-link{
+      display: none;
+    }
+@media(max-width:998px){
+    .contact-button {
+        display: none;
+    }
+    .contact-link{
+      display: block;
+    }
+}
